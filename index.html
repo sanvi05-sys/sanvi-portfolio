@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SANVI REDDY - The Creative Archive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=DM+Sans:wght@400;500;700;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    :root {
+      --cream: #F5EDD6;
+      --parchment: #EDE5C8;
+      --paper: #FAF7F0;
+      --wine: #8B3A52;
+      --rose: #D4889A;
+      --ink: #2C1810;
+      --tan: #C4A882;
+      --olive: #7A7A5A;
+      --white: #FFFDF5;
+      --shadow: rgba(44, 24, 16, 0.18);
+      --serif: "Playfair Display", Georgia, serif;
+      --sans: "DM Sans", Arial, sans-serif;
+      --mono: "Courier Prime", monospace;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: var(--sans);
+      background:
+        radial-gradient(circle at 20% 10%, rgba(212, 136, 154, 0.16), transparent 28%),
+        radial-gradient(circle at 92% 35%, rgba(122, 122, 90, 0.14), transparent 26%),
+        var(--cream);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.38;
+      z-index: 100;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.22'/%3E%3C/svg%3E");
+      mix-blend-mode: multiply;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    button, input, select, textarea {
+      font: inherit;
+      color: inherit;
+    }
+
+    .archive-shell {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 22px 56px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .top-stamp,
+    .stamp {
+      font-family: var(--mono);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--wine);
+      border: 1.5px solid rgba(139, 58, 82, 0.54);
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px 6px;
+      transform: rotate(-1.2deg);
+      background: rgba(255, 253, 245, 0.48);
+      box-shadow: 0 2px 0 rgba(139, 58, 82, 0.12);
+    }
+
+    .hero {
+      min-height: 82vh;
+      display: grid;
+      align-items: center;
+      position: relative;
+      padding: 44px 0 28px;
+      isolation: isolate;
+    }
+
+    .hero::after {
+      content: "SR";
+      position: absolute;
+      right: -22px;
+      top: 66px;
+      font-family: var(--serif);
+      font-size: clamp(160px, 25vw, 320px);
+      line-height: 1;
+      color: rgba(139, 58, 82, 0.055);
+      font-weight: 900;
+      font-style: italic;
+      z-index: -1;
+    }
+
+    .paper-shape {
+      position: absolute;
+      z-index: -1;
+      background: rgba(250, 247, 240, 0.72);
+      border: 1px solid rgba(44, 24, 16, 0.08);
+      box-shadow: 0 18px 34px rgba(44, 24, 16, 0.08);
+    }
+
+    .shape-one {
+      width: 190px;
+      height: 130px;
+      right: 110px;
+      top: 130px;
+      transform: rotate(9deg);
+      background: rgba(196, 168, 130, 0.22);
+    }
+
+    .shape-two {
+      width: 145px;
+      height: 170px;
+      right: 20px;
+      bottom: 96px;
+      transform: rotate(-8deg);
+      background: rgba(212, 136, 154, 0.18);
+    }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(280px, 0.58fr);
+      gap: clamp(22px, 5vw, 58px);
+      align-items: center;
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .hero-content {
+      max-width: 820px;
+      min-width: 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(22px);
+      animation: fadeUp 0.74s cubic-bezier(.2,.72,.2,1) forwards;
+      animation-delay: var(--delay, 0s);
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(56px, 8vw, 96px);
+      line-height: 0.92;
+      letter-spacing: 0;
+      font-style: italic;
+      font-weight: 900;
+      max-width: 900px;
+      margin: 34px 0 18px;
+    }
+
+    .subheadline {
+      max-width: 610px;
+      color: rgba(44, 24, 16, 0.74);
+      font-size: 16px;
+      line-height: 1.7;
+      margin: 22px 0 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .hero-portrait {
+      position: relative;
+      justify-self: center;
+      width: min(360px, 100%);
+      transform: rotate(1.4deg);
+      opacity: 0;
+      animation: fadeUp 0.74s cubic-bezier(.2,.72,.2,1) forwards;
+      animation-delay: .75s;
+    }
+
+    .hero-portrait::before {
+      content: "";
+      position: absolute;
+      inset: 20px -14px -18px 18px;
+      background: rgba(139, 58, 82, 0.12);
+      clip-path: polygon(7% 0, 98% 5%, 100% 88%, 92% 100%, 3% 94%, 0 12%);
+      z-index: -2;
+      transform: rotate(-4deg);
+    }
+
+    .hero-portrait::after {
+      content: "";
+      position: absolute;
+      left: 24px;
+      top: -12px;
+      width: 118px;
+      height: 27px;
+      background: rgba(212, 136, 154, 0.66);
+      transform: rotate(-8deg);
+      box-shadow: 0 2px 8px rgba(44, 24, 16, 0.12);
+    }
+
+    .portrait-cutout {
+      display: block;
+      width: 100%;
+      aspect-ratio: 0.72;
+      object-fit: cover;
+      object-position: center top;
+      border: 10px solid var(--white);
+      background: var(--paper);
+      clip-path: polygon(5% 2%, 94% 0, 100% 13%, 96% 96%, 80% 100%, 11% 97%, 0 86%, 3% 18%);
+      filter: drop-shadow(0 20px 24px rgba(44, 24, 16, 0.24));
+    }
+
+    .portrait-name {
+      position: absolute;
+      right: -8px;
+      bottom: 30px;
+      display: inline-flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 12px 15px 10px;
+      background: var(--white);
+      border: 1.5px solid rgba(139, 58, 82, 0.48);
+      box-shadow: 5px 5px 0 rgba(196, 168, 130, 0.35);
+      transform: rotate(-3deg);
+      color: var(--wine);
+    }
+
+    .portrait-name strong {
+      font-family: var(--serif);
+      font-size: 34px;
+      line-height: 0.9;
+      font-style: italic;
+      font-weight: 900;
+      color: var(--ink);
+    }
+
+    .portrait-name span {
+      font-family: var(--mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 700;
+    }
+
+    .label-button {
+      border: 2px solid var(--wine);
+      background: var(--white);
+      color: var(--wine);
+      font-family: var(--mono);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+      padding: 13px 18px 11px;
+      border-radius: 8px;
+      box-shadow: 5px 5px 0 rgba(139, 58, 82, 0.2);
+      transform: rotate(-0.5deg);
+      cursor: pointer;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .label-button:nth-child(2) {
+      transform: rotate(0.7deg);
+      border-color: var(--olive);
+      color: var(--olive);
+      box-shadow: 5px 5px 0 rgba(122, 122, 90, 0.18);
+    }
+
+    .label-button:hover {
+      transform: translateY(-3px) rotate(0deg);
+      box-shadow: 7px 8px 0 rgba(139, 58, 82, 0.18);
+    }
+
+    .torn-divider {
+      width: min(610px, 100%);
+      height: 32px;
+      margin: 8px 0 0;
+      background: var(--paper);
+      clip-path: polygon(0 28%, 4% 50%, 8% 34%, 12% 63%, 17% 39%, 22% 70%, 28% 42%, 34% 67%, 41% 45%, 49% 73%, 57% 39%, 65% 65%, 73% 38%, 82% 64%, 90% 43%, 96% 62%, 100% 45%, 100% 100%, 0 100%);
+      position: relative;
+      border-bottom: 1px solid rgba(44, 24, 16, 0.1);
+    }
+
+    .torn-divider::before {
+      content: "";
+      position: absolute;
+      left: 28px;
+      top: 1px;
+      width: 118px;
+      height: 18px;
+      background: rgba(212, 136, 154, 0.5);
+      transform: rotate(-3deg);
+      opacity: 0.82;
+    }
+
+    .folder-nav-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      padding-top: 14px;
+      background: linear-gradient(to bottom, var(--cream) 0%, rgba(245, 237, 214, 0.94) 76%, rgba(245, 237, 214, 0) 100%);
+      margin: 8px -22px 22px;
+      padding-left: 22px;
+      padding-right: 22px;
+      overflow: hidden;
+    }
+
+    .folder-nav {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 10px 0 0;
+      scrollbar-width: thin;
+      max-width: 100%;
+    }
+
+    .folder-tab {
+      position: relative;
+      flex: 0 0 auto;
+      min-width: 132px;
+      border: 1px solid rgba(44, 24, 16, 0.22);
+      border-bottom: 0;
+      background: #E3D2A5;
+      color: var(--ink);
+      padding: 12px 15px 14px;
+      border-radius: 12px 12px 0 0;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transform: translateY(0);
+      transition: transform 220ms ease, background 220ms ease, box-shadow 220ms ease;
+      box-shadow: inset 0 -7px 0 rgba(44, 24, 16, 0.05);
+    }
+
+    .folder-tab::before {
+      content: "";
+      position: absolute;
+      right: 16px;
+      top: -11px;
+      width: 52px;
+      height: 14px;
+      background: inherit;
+      border: 1px solid rgba(44, 24, 16, 0.18);
+      border-bottom: 0;
+      border-radius: 9px 9px 0 0;
+    }
+
+    .folder-tab.active {
+      background: var(--cream);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 18px rgba(44, 24, 16, 0.1);
+      color: var(--wine);
+    }
+
+    .folder-stage {
+      border: 1px solid rgba(44, 24, 16, 0.18);
+      border-radius: 0 8px 8px 8px;
+      background:
+        linear-gradient(135deg, rgba(255, 253, 245, 0.86), rgba(237, 229, 200, 0.94)),
+        var(--parchment);
+      box-shadow: 0 30px 70px rgba(44, 24, 16, 0.15);
+      padding: clamp(24px, 4vw, 48px);
+      min-height: 650px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .folder-stage::before {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border: 1px dashed rgba(44, 24, 16, 0.13);
+      pointer-events: none;
+    }
+
+    .folder-content {
+      position: relative;
+      z-index: 1;
+      animation: slideFolder 300ms ease both;
+    }
+
+    @keyframes slideFolder {
+      from { opacity: 0; transform: translateX(44px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(44px, 7vw, 78px);
+      line-height: 0.95;
+      font-style: italic;
+      font-weight: 900;
+      margin: 0;
+      color: var(--ink);
+    }
+
+    .section-title .folder-num {
+      display: block;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--wine);
+      font-style: normal;
+      margin-bottom: 10px;
+    }
+
+    .decorative-line {
+      font-family: var(--mono);
+      color: rgba(139, 58, 82, 0.72);
+      letter-spacing: 0.16em;
+      font-size: 13px;
+    }
+
+    .subtabs,
+    .filter-row,
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 20px 0 28px;
+    }
+
+    .paper-tab,
+    .filter-badge,
+    .stamp-tag,
+    .skill-tag {
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.1;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .paper-tab {
+      background: var(--white);
+      border: 1px solid rgba(44, 24, 16, 0.18);
+      padding: 9px 13px 7px;
+      border-radius: 8px 8px 3px 3px;
+      box-shadow: 2px 3px 0 rgba(196, 168, 130, 0.42);
+      transform: rotate(var(--r, 0deg));
+    }
+
+    .filter-badge {
+      background: rgba(212, 136, 154, 0.23);
+      border: 1.5px solid rgba(139, 58, 82, 0.38);
+      color: var(--wine);
+      padding: 10px 13px 8px;
+      border-radius: 999px;
+      transform: rotate(var(--r, 0deg));
+    }
+
+    .doc-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+      align-items: start;
+    }
+
+    .document-card,
+    .design-card,
+    .index-card,
+    .file-card,
+    .dossier-panel,
+    .contact-form-paper {
+      position: relative;
+      background: var(--paper);
+      border: 1px solid rgba(44, 24, 16, 0.16);
+      box-shadow: 0 16px 28px rgba(44, 24, 16, 0.1);
+      transition: transform 200ms ease, box-shadow 200ms ease;
+    }
+
+    .document-card {
+      padding: 25px 22px 22px;
+      min-height: 310px;
+      transform: rotate(var(--r, 0deg));
+    }
+
+    .document-card::before,
+    .design-card::before,
+    .index-card::before,
+    .dossier-panel::before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: 22px;
+      width: 76px;
+      height: 22px;
+      background: rgba(212, 136, 154, 0.56);
+      transform: rotate(-4deg);
+      opacity: 0;
+      transition: opacity 200ms ease;
+      box-shadow: 0 1px 5px rgba(44, 24, 16, 0.1);
+    }
+
+    .document-card:hover,
+    .design-card:hover,
+    .index-card:hover,
+    .file-card:hover {
+      transform: translateY(-4px) rotate(0deg);
+      box-shadow: 0 22px 38px rgba(44, 24, 16, 0.16);
+    }
+
+    .document-card:hover::before,
+    .design-card:hover::before,
+    .index-card:hover::before,
+    .dossier-panel:hover::before {
+      opacity: 1;
+    }
+
+    .meta {
+      font-family: var(--mono);
+      color: var(--wine);
+      font-size: 12px;
+      line-height: 1.5;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 13px;
+    }
+
+    .card-title {
+      font-family: var(--serif);
+      font-size: 28px;
+      line-height: 1.02;
+      font-style: italic;
+      font-weight: 900;
+      margin: 0 0 14px;
+    }
+
+    .card-copy {
+      color: rgba(44, 24, 16, 0.76);
+      font-size: 14px;
+      line-height: 1.62;
+      margin: 0 0 16px;
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--mono);
+      color: var(--wine);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 12px;
+      font-weight: 700;
+      border-bottom: 1px solid currentColor;
+    }
+
+    .tag-pill {
+      display: inline-block;
+      margin-top: 6px;
+      background: rgba(122, 122, 90, 0.14);
+      border: 1px solid rgba(122, 122, 90, 0.34);
+      color: var(--olive);
+      padding: 8px 10px 6px;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .script-sheet {
+      margin-top: 26px;
+      padding: clamp(22px, 4vw, 34px);
+      background:
+        repeating-linear-gradient(to bottom, transparent 0 35px, rgba(139, 58, 82, 0.11) 35px 36px),
+        var(--white);
+      border: 1px solid rgba(44, 24, 16, 0.16);
+      box-shadow: 0 18px 32px rgba(44, 24, 16, 0.12);
+      transform: rotate(-0.4deg);
+      scroll-margin-top: 120px;
+    }
+
+    .script-sheet h3 {
+      margin: 0 0 10px;
+      font-family: var(--serif);
+      font-size: clamp(32px, 5vw, 52px);
+      line-height: 0.95;
+      font-style: italic;
+      font-weight: 900;
+    }
+
+    .script-intro {
+      max-width: 760px;
+      margin: 0 0 22px;
+      color: rgba(44, 24, 16, 0.78);
+      line-height: 1.6;
+    }
+
+    .script-line {
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      gap: 16px;
+      padding: 14px 0;
+      border-top: 1px dashed rgba(44, 24, 16, 0.17);
+    }
+
+    .script-line strong {
+      font-family: var(--mono);
+      color: var(--wine);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .script-line p {
+      margin: 0;
+      line-height: 1.65;
+      color: rgba(44, 24, 16, 0.82);
+    }
+
+    .script-line ul {
+      margin: 0;
+      padding-left: 18px;
+      line-height: 1.65;
+      color: rgba(44, 24, 16, 0.82);
+    }
+
+    .design-grid {
+      columns: 3 250px;
+      column-gap: 22px;
+    }
+
+    .design-card {
+      display: inline-block;
+      width: 100%;
+      margin: 0 0 22px;
+      padding: 0 0 22px;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      break-inside: avoid;
+    }
+
+    .design-card:hover .folder-flap {
+      transform: rotateX(-18deg) translateY(-6px);
+    }
+
+    .folder-flap {
+      height: 56px;
+      background: var(--tan);
+      border-bottom: 1px solid rgba(44, 24, 16, 0.12);
+      transform-origin: top center;
+      transition: transform 220ms ease;
+      clip-path: polygon(0 25%, 34% 25%, 42% 0, 70% 0, 78% 25%, 100% 25%, 100% 100%, 0 100%);
+    }
+
+    .thumbnail {
+      margin: 18px;
+      min-height: 172px;
+      background:
+        linear-gradient(135deg, rgba(250, 247, 240, 0.88), rgba(237, 229, 200, 0.7)),
+        radial-gradient(circle at 18% 22%, rgba(122, 122, 90, 0.3), transparent 16%),
+        radial-gradient(circle at 78% 35%, rgba(212, 136, 154, 0.28), transparent 22%);
+      border: 1px solid rgba(44, 24, 16, 0.1);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 20px;
+      font-family: var(--serif);
+      font-size: 30px;
+      line-height: 1;
+      font-style: italic;
+      color: var(--wine);
+    }
+
+    .design-card:nth-child(2) .thumbnail {
+      min-height: 224px;
+      background:
+        repeating-linear-gradient(90deg, rgba(196,168,130,.15) 0 18px, rgba(250,247,240,.45) 18px 36px),
+        linear-gradient(160deg, rgba(212,136,154,.26), rgba(255,253,245,.85));
+    }
+
+    .design-card:nth-child(3) .thumbnail {
+      min-height: 145px;
+      background:
+        linear-gradient(135deg, rgba(44,24,16,.86), rgba(139,58,82,.76)),
+        var(--wine);
+      color: var(--white);
+    }
+
+    .design-body { padding: 0 20px; }
+
+    .social-board {
+      background: rgba(196, 168, 130, 0.26);
+      border: 1px solid rgba(44, 24, 16, 0.12);
+      padding: 28px;
+      box-shadow: inset 0 0 0 10px rgba(255, 253, 245, 0.24);
+    }
+
+    .role-card {
+      max-width: 500px;
+      background: var(--white);
+      border-left: 7px solid var(--wine);
+      padding: 22px;
+      margin-bottom: 28px;
+      transform: rotate(-1deg);
+      box-shadow: 0 13px 22px rgba(44, 24, 16, 0.1);
+    }
+
+    .role-card h3 {
+      margin: 0 0 8px;
+      font-family: var(--serif);
+      font-size: 31px;
+      font-style: italic;
+      line-height: 1;
+    }
+
+    .index-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .index-card {
+      padding: 22px 18px 20px;
+      min-height: 176px;
+      transform: rotate(var(--r, 0deg));
+    }
+
+    .pin {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--wine);
+      box-shadow: 0 2px 0 rgba(44, 24, 16, 0.24);
+    }
+
+    .index-card h4 {
+      font-family: var(--mono);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 14px;
+      color: var(--wine);
+      margin: 8px 0 11px;
+    }
+
+    .index-card p {
+      margin: 0;
+      line-height: 1.55;
+      font-size: 14px;
+    }
+
+    .stamp-tag {
+      border: 1.5px solid rgba(139, 58, 82, 0.5);
+      color: var(--wine);
+      padding: 8px 11px 6px;
+      opacity: 0.9;
+      transform: rotate(var(--r, 0deg));
+      background: rgba(255, 253, 245, 0.38);
+    }
+
+    .experience-stack {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      margin-bottom: 30px;
+    }
+
+    .file-card {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 24px;
+      padding: 24px;
+      background: var(--white);
+    }
+
+    .file-card .meta {
+      border-right: 1px dashed rgba(44, 24, 16, 0.2);
+      margin: 0;
+      padding-right: 20px;
+    }
+
+    .file-card h3 {
+      margin: 0 0 8px;
+      font-family: var(--serif);
+      font-size: 34px;
+      line-height: 1;
+      font-style: italic;
+    }
+
+    .file-card ul {
+      margin: 12px 0 0;
+      padding-left: 18px;
+      color: rgba(44, 24, 16, 0.78);
+      line-height: 1.62;
+    }
+
+    .skill-cluster {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-top: 12px;
+    }
+
+    .skill-tag {
+      border-radius: 999px;
+      padding: 10px 13px 8px;
+      border: 1.5px solid rgba(44, 24, 16, 0.16);
+      background: var(--fill, rgba(212, 136, 154, 0.18));
+      transform: rotate(var(--r, 0deg));
+      animation: floaty 4.6s ease-in-out infinite;
+      animation-delay: var(--d, 0s);
+    }
+
+    @keyframes floaty {
+      0%, 100% { translate: 0 0; }
+      50% { translate: 0 -5px; }
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 0.82fr 1.18fr;
+      gap: 34px;
+      align-items: start;
+    }
+
+    .dossier-panel {
+      padding: 24px;
+      background: rgba(255, 253, 245, 0.74);
+    }
+
+    .photo-placeholder {
+      aspect-ratio: 4 / 5;
+      border-radius: 8px;
+      background:
+        linear-gradient(145deg, rgba(139,58,82,.18), rgba(250,247,240,.62)),
+        repeating-linear-gradient(-8deg, transparent 0 14px, rgba(196,168,130,.18) 14px 16px);
+      border: 1px solid rgba(44, 24, 16, 0.12);
+      position: relative;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .photo-placeholder img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 74% center;
+    }
+
+    .photo-placeholder::after {
+      content: "";
+      position: absolute;
+      right: 24px;
+      top: -8px;
+      width: 94px;
+      height: 25px;
+      background: rgba(212, 136, 154, 0.56);
+      transform: rotate(8deg);
+    }
+
+    .sticky-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .sticky-note {
+      min-height: 78px;
+      padding: 16px 13px;
+      background: var(--fill, #FFF3BD);
+      box-shadow: 0 8px 15px rgba(44, 24, 16, 0.1);
+      transform: rotate(var(--r, 0deg));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-weight: 800;
+      border: 1px solid rgba(44, 24, 16, 0.09);
+    }
+
+    .dossier-fields {
+      display: grid;
+      gap: 16px;
+    }
+
+    .field-label {
+      display: block;
+      font-family: var(--mono);
+      color: var(--wine);
+      letter-spacing: 0.09em;
+      font-weight: 700;
+      font-size: 13px;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+    }
+
+    .field-copy {
+      margin: 0;
+      line-height: 1.7;
+      color: rgba(44, 24, 16, 0.82);
+    }
+
+    .about-quote {
+      margin: 40px 0 0;
+      text-align: center;
+      font-family: var(--serif);
+      font-size: clamp(36px, 5vw, 64px);
+      line-height: 1;
+      font-style: italic;
+      font-weight: 900;
+      color: var(--wine);
+    }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 0.72fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .contact-form-paper {
+      padding: 30px;
+      background:
+        repeating-linear-gradient(to bottom, transparent 0 43px, rgba(139, 58, 82, 0.16) 43px 44px),
+        var(--white);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      align-items: end;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .form-row label {
+      font-family: var(--mono);
+      text-transform: uppercase;
+      color: var(--wine);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+    }
+
+    .contact-form-paper input,
+    .contact-form-paper select,
+    .contact-form-paper textarea {
+      width: 100%;
+      border: 0;
+      border-bottom: 2px solid rgba(44, 24, 16, 0.38);
+      background: transparent;
+      padding: 8px 4px;
+      outline: none;
+    }
+
+    .contact-form-paper textarea {
+      min-height: 150px;
+      resize: vertical;
+      line-height: 2.7;
+    }
+
+    .stamp-button {
+      border: 0;
+      margin-top: 12px;
+      background: var(--wine);
+      color: var(--white);
+      padding: 15px 20px 13px;
+      font-family: var(--mono);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      box-shadow: 5px 5px 0 rgba(44, 24, 16, 0.22);
+      cursor: pointer;
+      transition: transform 120ms ease, box-shadow 120ms ease;
+    }
+
+    .stamp-button:active {
+      transform: scale(0.97);
+      box-shadow: 2px 2px 0 rgba(44, 24, 16, 0.22);
+    }
+
+    .contact-stickers {
+      display: grid;
+      gap: 14px;
+    }
+
+    .contact-sticker {
+      background: var(--paper);
+      border: 1px solid rgba(44, 24, 16, 0.14);
+      padding: 16px 17px;
+      font-family: var(--mono);
+      font-weight: 700;
+      word-break: break-word;
+      box-shadow: 4px 4px 0 rgba(196, 168, 130, 0.34);
+      transform: rotate(var(--r, 0deg));
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 520ms ease, transform 520ms ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 980px) {
+      .hero-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-portrait {
+        width: min(330px, 82vw);
+        justify-self: start;
+        margin-top: 12px;
+      }
+
+      .doc-grid,
+      .index-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .file-card,
+      .about-grid,
+      .contact-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .file-card .meta {
+        border-right: 0;
+        border-bottom: 1px dashed rgba(44, 24, 16, 0.2);
+        padding: 0 0 14px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .archive-shell { padding: 20px 14px 40px; }
+      .hero { min-height: auto; padding: 34px 0 44px; }
+      .top-stamp { font-size: 10px; }
+      .folder-nav-wrap { margin-left: -14px; margin-right: -14px; padding-left: 14px; padding-right: 14px; }
+      .folder-stage { padding: 24px 16px; border-radius: 0 0 8px 8px; }
+      .doc-grid,
+      .index-grid,
+      .sticky-grid {
+        grid-template-columns: 1fr;
+      }
+      .section-head { align-items: start; }
+      .contact-form-paper { padding: 22px 16px; }
+      .form-row { grid-template-columns: 1fr; gap: 4px; }
+      .script-line { grid-template-columns: 1fr; gap: 7px; }
+      .shape-one, .shape-two { display: none; }
+      .hero h1 { font-size: clamp(52px, 16vw, 70px); }
+      .portrait-name {
+        right: 8px;
+        bottom: 18px;
+        max-width: calc(100% - 16px);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 1ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useEffect, useMemo, useState } = React;
+
+    const tabs = [
+      { id: "writing", label: "WRITING" },
+      { id: "design", label: "DESIGN" },
+      { id: "social", label: "SOCIAL" },
+      { id: "tech", label: "TECH" },
+      { id: "about", label: "ABOUT" },
+      { id: "contact", label: "CONTACT" }
+    ];
+
+    const writingCards = [
+      {
+        title: "What is Agni and Why Every Disease Starts Here?",
+        category: "BLOG - Ayurveda & Health",
+        client: "Dr. Rekha Ayurveda",
+        description: "Long-form Ayurvedic health blog exploring the concept of Agni as the root of all disease, written for Doctor Rekha's wellness platform.",
+        link: "https://www.instagram.com/p/DY99Vr1Cqgx/",
+        tag: "Blog Writing ✦ 1200+ words"
+      },
+      {
+        title: "Ayurvedic Health Newsletter",
+        category: "NEWSLETTER - Email Marketing",
+        client: "Dr. Rekha Ayurveda",
+        description: "Subscriber newsletter translating complex Ayurvedic concepts - Kapha, Vata, Pitta - into accessible, actionable health guidance.",
+        tag: "Newsletter ✦ Email Campaign"
+      },
+      {
+        title: "\"Plastic is Everywhere\" - YouTube Short Script",
+        category: "SCRIPT - Brand Content",
+        client: "Biodegradable Plastics Brand",
+        description: "A script on Plastic Awareness, wrote for Biodegradable plastics brand.",
+        link: "plastic-script.html",
+        linkLabel: "View piece",
+        tag: "Scriptwriting ✦ Video Content"
+      },
+      {
+        title: "Sports Book - Chapter 1: Athletics",
+        category: "LONG-FORM - Book Content",
+        description: "Opening chapter of a sports-focused book covering athletics, narrative nonfiction style.",
+        tag: "Long-form Writing ✦ Book Chapter"
+      },
+      {
+        title: "Technical Documentation & User Guides",
+        category: "TECHNICAL WRITING - Cloud6AI",
+        client: "Cloud6AI (Research Assistant)",
+        description: "Created and maintained product documentation, user guides, and structured technical content for clarity and usability. Also produced white papers and research-based articles for publication.",
+        tag: "Technical Writing ✦ White Papers"
+      }
+    ];
+
+    const designCards = [
+      {
+        title: "Doctor Rekha Ayurveda - Brand Design Suite",
+        type: "Canva Designs + Branding",
+        description: "Full visual brand content suite including product catalogs, carousels, and marketing materials for an Ayurvedic wellness brand.",
+        link: "https://canva.link/ouusej2g5sdey5x",
+        thumbnail: "Doctor Rekha\\nProduct Catalog"
+      },
+      {
+        title: "Instagram Carousel - Ayurvedic Content",
+        type: "Instagram Carousel",
+        description: "Educational carousel posts translating health and wellness content for social media audiences.",
+        link: "https://www.instagram.com/p/DY99Vr1Cqgx/",
+        thumbnail: "Ayurvedic\\nCarousel"
+      },
+      {
+        title: "Video Editing Samples",
+        type: "Video Editing",
+        description: "Short-form video content edited for social media and brand campaigns.",
+        link: "https://drive.google.com/drive/folders/113BPJnmhJ5IygYijjw9-SG9NARrMano2",
+        thumbnail: "Video\\nEditing"
+      }
+    ];
+
+    const socialCards = [
+      ["Carousel Posts", "Educational Instagram carousels for health and wellness content"],
+      ["Email Campaigns", "Newsletter strategy and copywriting for subscriber audiences"],
+      ["Blog Content", "Long-form SEO-friendly articles for Ayurvedic platform"],
+      ["Brand Storytelling", "Audience-focused, brand-aligned content for marketing initiatives"],
+      ["Booklets & Whitepapers", "In-depth written assets for thought leadership"]
+    ];
+
+    const skillTags = [
+      "Python", "AWS", "Cloud Computing", "Data Warehousing", "ETL", "SDLC", "Database Management",
+      "Technical Writing", "Research Writing", "White Papers", "Blog Writing", "Newsletter Writing",
+      "Email Marketing", "Content Strategy", "Zoho", "WordPress", "Canva"
+    ];
+
+    const rotations = ["-1.6deg", "1.2deg", "-0.7deg", "1.8deg", "-1.1deg", "0.8deg"];
+    const fills = ["rgba(212,136,154,.2)", "rgba(196,168,130,.27)", "rgba(122,122,90,.18)", "rgba(255,253,245,.82)", "rgba(237,229,200,.72)"];
+
+    function Hero({ onOpen }) {
+      return (
+        <section className="hero">
+          <div className="paper-shape shape-one"></div>
+          <div className="paper-shape shape-two"></div>
+          <div className="hero-layout">
+            <div className="hero-content">
+              <div className="top-stamp fade-up" style={{ "--delay": "0s" }}>CASE FILE NO. 001 ✦ THE CREATIVE ARCHIVE</div>
+              <h1 className="fade-up" style={{ "--delay": ".15s" }}>I turn ideas into<br />stories, designs,<br />and experiences.</h1>
+              <div className="torn-divider fade-up" style={{ "--delay": ".3s" }}></div>
+              <p className="subheadline fade-up" style={{ "--delay": ".45s" }}>
+                Engineering student, technical writer, designer, and social media strategist - where creativity meets structure.
+              </p>
+              <div className="hero-actions fade-up" style={{ "--delay": ".6s" }}>
+                <button className="label-button" onClick={onOpen}>Open Portfolio</button>
+                <a className="label-button" href="mailto:reddysanvi173@gmail.com?subject=Resume%20Request%20-%20Sanvi%20Reddy">Download Resume ↓</a>
+              </div>
+            </div>
+            <figure className="hero-portrait" aria-label="Portrait of L Sanvi">
+              <img className="portrait-cutout" src="assets/sanvi-portrait.jpeg" alt="L Sanvi" />
+              <figcaption className="portrait-name">
+                <span>Archive Owner</span>
+                <strong>L Sanvi</strong>
+              </figcaption>
+            </figure>
+            </div>
+        </section>
+      );
+    }
+
+    function SectionHead({ number, title, stamp }) {
+      return (
+        <div className="section-head reveal">
+          <h2 className="section-title"><span className="folder-num">{number}</span>{title}</h2>
+          <div>
+            {stamp && <div className="stamp">{stamp}</div>}
+            <div className="decorative-line" style={{ marginTop: 12 }}>✦ ✧ + -- ✧ ✦</div>
+          </div>
+        </div>
+      );
+    }
+
+    function Writing() {
+      return (
+        <div>
+          <SectionHead number="Folder 01" title="Writing Archive" />
+          <div className="subtabs reveal">
+            {["Blogs", "Technical Writing", "White Papers", "Newsletters", "Scripts", "Research"].map((item, i) => (
+              <span className="paper-tab" style={{ "--r": rotations[i % rotations.length] }} key={item}>{item}</span>
+            ))}
+          </div>
+          <div className="doc-grid">
+            {writingCards.map((card, i) => (
+              <article className="document-card reveal" style={{ "--r": rotations[i % rotations.length] }} key={card.title}>
+                <div className="meta">{card.category}{card.client ? <><br />CLIENT: {card.client}</> : null}</div>
+                <h3 className="card-title">{card.title}</h3>
+                <p className="card-copy">{card.description}</p>
+                {card.link && (
+                  <a
+                    className="card-link"
+                    href={card.link}
+                    target={card.link.startsWith("#") ? undefined : "_blank"}
+                    rel={card.link.startsWith("#") ? undefined : "noreferrer"}
+                  >
+                    {card.linkLabel || "Open piece"} →
+                  </a>
+                )}
+                <br />
+                <span className="tag-pill">{card.tag}</span>
+              </article>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    function Design() {
+      return (
+        <div>
+          <SectionHead number="Folder 02" title="Design Cabinet" />
+          <div className="filter-row reveal">
+            {["Canva Designs", "Instagram Carousels", "Branding", "Product Design", "Video Editing"].map((item, i) => (
+              <span className="filter-badge" style={{ "--r": rotations[i % rotations.length] }} key={item}>{item}</span>
+            ))}
+          </div>
+          <div className="design-grid">
+            {designCards.map((card) => (
+              <article className="design-card reveal" key={card.title}>
+                <div className="folder-flap"></div>
+                <div className="thumbnail">{card.thumbnail.split("\\n").map((line) => <React.Fragment key={line}>{line}<br /></React.Fragment>)}</div>
+                <div className="design-body">
+                  <div className="meta">{card.type}</div>
+                  <h3 className="card-title">{card.title}</h3>
+                  <p className="card-copy">{card.description}</p>
+                  <a className="card-link" href={card.link} target="_blank" rel="noreferrer">View project →</a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    function Social() {
+      return (
+        <div>
+          <SectionHead number="Folder 03" title="Social Desk" stamp="SOCIAL MEDIA STRATEGY & CONTENT" />
+          <div className="social-board reveal">
+            <div className="role-card">
+              <div className="meta">2025 - Current<br />CLIENT: Dr. Rekha Ayurveda</div>
+              <h3>Content Writer & Social Media Manager</h3>
+            </div>
+            <div className="index-grid">
+              {socialCards.map(([title, copy], i) => (
+                <article className="index-card" style={{ "--r": rotations[i % rotations.length] }} key={title}>
+                  <span className="pin"></span>
+                  <h4>{title}</h4>
+                  <p>{copy}</p>
+                </article>
+              ))}
+            </div>
+            <div className="tag-row" style={{ marginBottom: 0 }}>
+              {["Zoho", "WordPress", "Canva", "Instagram"].map((tool, i) => (
+                <span className="stamp-tag" style={{ "--r": rotations[i % rotations.length] }} key={tool}>{tool}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    function Tech() {
+      const experiences = [
+        {
+          company: "Cloud6AI",
+          role: "Research Assistant",
+          period: "2025 - Current",
+          details: ["Product documentation and user guides", "In-depth technical and domain-specific research", "White papers and technical articles for publication", "Evaluated sources, extracted insights, summarized findings"]
+        },
+        {
+          company: "Cognizant",
+          role: "Programmer Analyst Trainee",
+          period: "Feb 2026 - May 2026",
+          details: ["Programming, database management, SDLC processes", "Team collaboration on requirement analysis and technical issue resolution", "Application maintenance support"]
+        },
+        {
+          company: "Gokaraju Lailavati Engineering College",
+          role: "B.E. Information Technology",
+          period: "2022 - 2026",
+          details: ["GPA: 8.4"]
+        }
+      ];
+
+      return (
+        <div>
+          <SectionHead number="Folder 04" title="Technical Dossier" stamp="TECHNICAL DOSSIER ✦ CLASSIFIED" />
+          <div className="experience-stack">
+            {experiences.map((exp) => (
+              <article className="file-card reveal" key={exp.company}>
+                <div className="meta">{exp.period}<br />FILE: {exp.company}</div>
+                <div>
+                  <h3>{exp.company}</h3>
+                  <strong>{exp.role}</strong>
+                  <ul>{exp.details.map((detail) => <li key={detail}>{detail}</li>)}</ul>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div className="skill-cluster reveal">
+            {skillTags.map((skill, i) => (
+              <span
+                className="skill-tag"
+                style={{
+                  "--r": rotations[i % rotations.length],
+                  "--fill": fills[i % fills.length],
+                  "--d": `${(i % 7) * .16}s`
+                }}
+                key={skill}
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    function About() {
+      const notes = [
+        ["Bibliophile 📚", "#FFF3BD"],
+        ["Technical Writer ✍️", "rgba(212,136,154,.28)"],
+        ["Designer 🎨", "rgba(122,122,90,.18)"],
+        ["IT Engineering Student 💻", "rgba(196,168,130,.28)"],
+        ["Social Media Strategist 📱", "rgba(250,247,240,.88)"]
+      ];
+      return (
+        <div>
+          <SectionHead number="Folder 05" title="Sanvi Reddy" stamp="CASE FILE: SANVI REDDY" />
+          <div className="stamp reveal" style={{ marginBottom: 24 }}>CLASSIFICATION: CREATIVE ✦ ENGINEER ✦ WRITER</div>
+          <div className="about-grid">
+            <aside className="dossier-panel reveal">
+              <div className="photo-placeholder">
+                <img src="assets/sanvi-about.JPG" alt="L Sanvi by the lake" />
+              </div>
+              <div className="sticky-grid">
+                {notes.map(([note, fill], i) => (
+                  <div className="sticky-note" style={{ "--r": rotations[i % rotations.length], "--fill": fill }} key={note}>{note}</div>
+                ))}
+              </div>
+            </aside>
+            <section className="dossier-panel reveal">
+              <div className="dossier-fields">
+                <p className="field-copy"><span className="field-label">NAME:</span>L Sanvi Reddy</p>
+                <p className="field-copy"><span className="field-label">LOCATION:</span>Bachupally, Hyderabad - 500090</p>
+                <p className="field-copy"><span className="field-label">BACKGROUND:</span>Final-year Information Technology student at Gokaraju Lailavati Engineering College, currently working as a Research Assistant at Cloud6AI and Content Writer & Social Media Manager for Dr. Rekha Ayurveda.</p>
+                <p className="field-copy"><span className="field-label">MISSION:</span>Creating work that lives at the intersection of creativity and structure - whether that's a technical white paper, a brand carousel, or a long-form blog that actually gets read.</p>
+                <p className="field-copy"><span className="field-label">EDUCATION:</span>B.E. IT, GLEC 2022-2026 (GPA: 8.4)</p>
+                <p className="field-copy"><span className="field-label">CONTACT:</span><a href="mailto:reddysanvi173@gmail.com">reddysanvi173@gmail.com</a></p>
+              </div>
+            </section>
+          </div>
+          <div className="about-quote reveal">"Where creativity meets structure."</div>
+        </div>
+      );
+    }
+
+    function Contact() {
+      return (
+        <div>
+          <SectionHead number="Folder 06" title="Submit a Request" stamp="SUBMIT A REQUEST TO THE ARCHIVE" />
+          <div className="contact-layout">
+            <form className="contact-form-paper reveal" onSubmit={(event) => {
+              event.preventDefault();
+              const form = event.currentTarget;
+              const data = new FormData(form);
+              const subject = encodeURIComponent(data.get("subject") || "Archive Request");
+              const body = encodeURIComponent(`Name: ${data.get("name")}\\nEmail: ${data.get("email")}\\nSubject: ${data.get("subject")}\\n\\n${data.get("message")}`);
+              window.location.href = `mailto:reddysanvi173@gmail.com?subject=${subject}&body=${body}`;
+            }}>
+              <div className="form-row">
+                <label htmlFor="name">Name:</label>
+                <input id="name" name="name" required />
+              </div>
+              <div className="form-row">
+                <label htmlFor="email">Email:</label>
+                <input id="email" name="email" type="email" required />
+              </div>
+              <div className="form-row">
+                <label htmlFor="subject">Subject:</label>
+                <select id="subject" name="subject">
+                  <option>Collaboration</option>
+                  <option>Writing</option>
+                  <option>Design</option>
+                  <option>Tech</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div className="form-row" style={{ alignItems: "start" }}>
+                <label htmlFor="message">Message:</label>
+                <textarea id="message" name="message" required></textarea>
+              </div>
+              <button className="stamp-button" type="submit">FILE REQUEST →</button>
+            </form>
+            <div className="contact-stickers reveal">
+              <a className="contact-sticker" style={{ "--r": "-1deg" }} href="mailto:reddysanvi173@gmail.com">📧 reddysanvi173@gmail.com</a>
+              <a className="contact-sticker" style={{ "--r": "1.2deg" }} href="tel:+919502352974">📞 9502352974</a>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    function App() {
+      const [active, setActive] = useState("writing");
+      const activeIndex = tabs.findIndex((tab) => tab.id === active);
+      const content = useMemo(() => ({
+        writing: <Writing />,
+        design: <Design />,
+        social: <Social />,
+        tech: <Tech />,
+        about: <About />,
+        contact: <Contact />
+      }), []);
+
+      useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) entry.target.classList.add("visible");
+          });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll(".reveal").forEach((node) => observer.observe(node));
+        return () => observer.disconnect();
+      }, [active]);
+
+      return (
+        <main className="archive-shell">
+          <Hero onOpen={() => document.getElementById("portfolio").scrollIntoView({ behavior: "smooth" })} />
+          <section id="portfolio">
+            <nav className="folder-nav-wrap" aria-label="Portfolio folders">
+              <div className="folder-nav">
+                {tabs.map((tab) => (
+                  <button
+                    className={`folder-tab ${active === tab.id ? "active" : ""}`}
+                    key={tab.id}
+                    onClick={() => setActive(tab.id)}
+                    type="button"
+                  >
+                    📁 {tab.label}
+                  </button>
+                ))}
+              </div>
+            </nav>
+            <div className="folder-stage">
+              <div className="folder-content" key={active} style={{ "--active-index": activeIndex }}>
+                {content[active]}
+              </div>
+            </div>
+          </section>
+        </main>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>

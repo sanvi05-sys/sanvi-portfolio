@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plastic is Everywhere - Script | L Sanvi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=DM+Sans:wght@400;500;700;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #F5EDD6;
+      --paper: #FAF7F0;
+      --wine: #8B3A52;
+      --rose: #D4889A;
+      --ink: #2C1810;
+      --tan: #C4A882;
+      --olive: #7A7A5A;
+      --white: #FFFDF5;
+      --serif: "Playfair Display", Georgia, serif;
+      --sans: "DM Sans", Arial, sans-serif;
+      --mono: "Courier Prime", monospace;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: var(--sans);
+      background:
+        radial-gradient(circle at 15% 8%, rgba(212, 136, 154, 0.16), transparent 28%),
+        radial-gradient(circle at 90% 32%, rgba(122, 122, 90, 0.15), transparent 25%),
+        var(--cream);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.34;
+      z-index: 10;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.22'/%3E%3C/svg%3E");
+      mix-blend-mode: multiply;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .page {
+      width: min(1040px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 56px;
+      position: relative;
+    }
+
+    .back-link {
+      display: inline-flex;
+      margin-bottom: 22px;
+      border: 2px solid var(--wine);
+      background: var(--white);
+      color: var(--wine);
+      font-family: var(--mono);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 12px;
+      padding: 11px 14px 9px;
+      border-radius: 8px;
+      box-shadow: 4px 4px 0 rgba(139, 58, 82, 0.18);
+      transform: rotate(-0.6deg);
+    }
+
+    .script-sheet {
+      position: relative;
+      padding: clamp(24px, 5vw, 52px);
+      background:
+        repeating-linear-gradient(to bottom, transparent 0 35px, rgba(139, 58, 82, 0.11) 35px 36px),
+        var(--white);
+      border: 1px solid rgba(44, 24, 16, 0.16);
+      box-shadow: 0 28px 58px rgba(44, 24, 16, 0.16);
+      transform: rotate(-0.35deg);
+    }
+
+    .script-sheet::before {
+      content: "";
+      position: absolute;
+      left: 46px;
+      top: -13px;
+      width: 132px;
+      height: 30px;
+      background: rgba(212, 136, 154, 0.62);
+      transform: rotate(-5deg);
+      box-shadow: 0 2px 8px rgba(44, 24, 16, 0.13);
+    }
+
+    .stamp {
+      display: inline-flex;
+      margin-bottom: 20px;
+      font-family: var(--mono);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--wine);
+      border: 1.5px solid rgba(139, 58, 82, 0.54);
+      padding: 8px 12px 6px;
+      background: rgba(255, 253, 245, 0.52);
+      transform: rotate(1deg);
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-family: var(--serif);
+      font-size: clamp(46px, 8vw, 86px);
+      line-height: 0.9;
+      font-style: italic;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .intro {
+      max-width: 760px;
+      margin: 0 0 26px;
+      color: rgba(44, 24, 16, 0.78);
+      line-height: 1.65;
+      font-size: 16px;
+    }
+
+    .script-line {
+      display: grid;
+      grid-template-columns: 190px minmax(0, 1fr);
+      gap: 18px;
+      padding: 15px 0;
+      border-top: 1px dashed rgba(44, 24, 16, 0.17);
+    }
+
+    .script-line strong {
+      font-family: var(--mono);
+      color: var(--wine);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .script-line p {
+      margin: 0;
+      line-height: 1.65;
+      color: rgba(44, 24, 16, 0.84);
+    }
+
+    .script-line ul {
+      margin: 0;
+      padding-left: 18px;
+      line-height: 1.65;
+      color: rgba(44, 24, 16, 0.84);
+    }
+
+    .final-text {
+      margin-top: 18px;
+      padding: 20px;
+      background: rgba(212, 136, 154, 0.18);
+      border: 1px solid rgba(139, 58, 82, 0.28);
+      font-family: var(--serif);
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.05;
+      font-style: italic;
+      font-weight: 900;
+      color: var(--wine);
+      transform: rotate(0.8deg);
+    }
+
+    .decorative-line {
+      margin-top: 26px;
+      font-family: var(--mono);
+      color: rgba(139, 58, 82, 0.72);
+      letter-spacing: 0.16em;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        width: min(100% - 24px, 1040px);
+        padding-top: 18px;
+      }
+
+      .script-sheet {
+        padding: 24px 16px;
+      }
+
+      .script-line {
+        grid-template-columns: 1fr;
+        gap: 7px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <a class="back-link" href="index.html">← Back to Archive</a>
+    <article class="script-sheet">
+      <div class="stamp">SCRIPT - Brand Content ✦ Biodegradable Plastics Brand</div>
+      <h1>"Plastic is Everywhere" - YouTube Short Script</h1>
+      <p class="intro">A script on Plastic Awareness, wrote for Biodegradable plastics brand.</p>
+
+      <section class="script-line">
+        <strong>Text with voice-over</strong>
+        <p>“Plastic is everywhere in the world around you…”</p>
+      </section>
+      <section class="script-line">
+        <strong>Visual</strong>
+        <ul>
+          <li>A busy Indian snack/tea stall on a bustling street with:</li>
+          <li>Hanging bags of chips</li>
+          <li>Plastic water bottles stacked</li>
+          <li>Food packets dangling in the shop</li>
+          <li>Disposable plastic cups</li>
+          <li>Plastic carry bags given to customers</li>
+        </ul>
+      </section>
+      <section class="script-line">
+        <strong>Text with voice-over</strong>
+        <p>“…but have you ever wondered how much of it ends up inside us too?”</p>
+      </section>
+      <section class="script-line">
+        <strong>Visual</strong>
+        <p>Camera smoothly zooms in to a man standing near the stall, he’s surrounded by all these everyday plastics.</p>
+      </section>
+      <section class="script-line">
+        <strong>Text with voice-over</strong>
+        <p>“They’re in the water you drink…”</p>
+      </section>
+      <section class="script-line">
+        <strong>Visual</strong>
+        <p>Close-up of the man unscrewing a plastic bottle, taking a sip of water.</p>
+      </section>
+      <section class="script-line">
+        <strong>Text with voice-over</strong>
+        <p>“…the food you eat…”</p>
+      </section>
+      <section class="script-line">
+        <strong>Visual</strong>
+        <p>Close-up of the man holding a packet of chips.</p>
+      </section>
+      <section class="script-line">
+        <strong>Text with voice-over</strong>
+        <p>“…the clothes you wear…” [optional]</p>
+      </section>
+      <section class="script-line">
+        <strong>Visual</strong>
+        <p>Macro close-up of shirt fabric or collar, showing fibers.</p>
+      </section>
+      <section class="script-line">
+        <strong>Text</strong>
+        <p>“…the toys your kids play with…”</p>
+      </section>
+      <section class="script-line">
+        <strong>Visual</strong>
+        <p>Plastic toys in the hands of kids playing nearby.</p>
+      </section>
+      <section class="script-line">
+        <strong>Text with voice-over</strong>
+        <p>“…and the air you breathe.”</p>
+      </section>
+      <section class="script-line">
+        <strong>Visual</strong>
+        <p>Street view with a car or auto rickshaw driving past, exhaust visible in the air and the pollutants smoke coming out of factory or industry behind.</p>
+      </section>
+      <section class="script-line">
+        <strong>Text with voice-over</strong>
+        <p>“Studies say that on average, almost every human unknowingly consumes about 120–200 milligrams of plastic every day.”</p>
+      </section>
+      <section class="script-line">
+        <strong>Visual</strong>
+        <p>(stat reveal)</p>
+      </section>
+      <section class="script-line">
+        <strong>Text with voice-over</strong>
+        <p>“Plastic not just harms the planet, but also your health, from metabolism to cancer, its impacts are real and deathly.”</p>
+      </section>
+
+      <div class="final-text">A better future begins with your choice for our kids and for Mother Earth</div>
+      <div class="decorative-line">✦ ✧ + -- ✧ ✦</div>
+    </article>
+  </main>
+</body>
+</html>
